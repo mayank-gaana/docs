@@ -1,0 +1,1544 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+servers:
+- description: Production
+  url: https://production.getgaana.com/api
+- description: Stage/Sandbox
+  url: https://experiment.getgaana.com/api
+paths:
+  /concepts/:
+    get:
+      operationId: concepts_list
+      description: Retrieves a paginated list of all available creative concepts.
+        Concepts are the core ideas or themes used to generate visuals.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - concept
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPaginatedListSuccess_B2BContentPillarsList'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+    post:
+      operationId: concepts_create
+      description: Creates a new creative concept. You can define a concept by providing
+        a name, a description, and reference images.
+      tags:
+      - concept
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConceptWriteDoc'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConceptWriteDoc'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConceptWriteDoc'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_B2BContentPillars'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+  /concepts/{id}/:
+    get:
+      operationId: concepts_retrieve
+      description: Retrieves a specific creative concept by its unique identifier.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - concept
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_B2BContentPillars'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+    put:
+      operationId: concepts_update
+      description: Updates an existing creative concept.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - concept
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConceptWriteDoc'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConceptWriteDoc'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConceptWriteDoc'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_B2BContentPillars'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+    delete:
+      operationId: concepts_destroy
+      description: Deletes a creative concept.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - concept
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_'
+          description: ''
+  /get_auth_token:
+    post:
+      operationId: get_auth_token_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthTokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthTokenRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthTokenRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_AuthTokenData'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+      description: Authenticates the user with an API key and returns a JWT bearer
+        token for accessing protected endpoints.
+  /media-config/:
+    get:
+      operationId: media_config_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - media-config
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaginatedListSuccess_B2BGeneratePostConfig'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+      description: Retrieves a list of all media configurations.
+    post:
+      operationId: media_config_create
+      tags:
+      - media-config
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaConfigRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MediaConfigRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MediaConfigRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_B2BGeneratePostConfig'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+      description: Creates a new media configuration for generating visuals.
+  /media-config/{id}/:
+    get:
+      operationId: media_config_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - media-config
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_B2BGeneratePostConfig'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+      description: Retrieves a specific media configuration by its ID.
+    delete:
+      operationId: media_config_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - media-config
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_'
+          description: ''
+      description: Deletes a media configuration.
+  /media/{object_id}/:
+    get:
+      operationId: media_list
+      description: Retrieves a list of generated media for a specific object.
+      parameters:
+      - in: path
+        name: object_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - media
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaginatedListSuccess_B2BGeneratedPost'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+  /media/{object_id}/{id}/:
+    get:
+      operationId: media_retrieve
+      description: Retrieves a specific generated media asset by its ID.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: object_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - media
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_B2BGeneratedPost'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+  /products/:
+    get:
+      operationId: products_list
+      description: Retrieves a list of all products.
+      tags:
+      - products
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaginatedListSuccess_B2BProducts'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+    post:
+      operationId: products_create
+      description: Creates a new product.
+      tags:
+      - products
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/B2BProductRequestDoc'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/B2BProductRequestDoc'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/B2BProductRequestDoc'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_B2BProducts'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+  /products/{id}/:
+    get:
+      operationId: products_retrieve
+      description: Retrieves a specific product by its ID.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - products
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_B2BProducts'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+    put:
+      operationId: products_update
+      description: Updates a product.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - products
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/B2BProductRequestDoc'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/B2BProductRequestDoc'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/B2BProductRequestDoc'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_B2BProducts'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+    patch:
+      operationId: products_partial_update
+      description: Partially updates a product.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - products
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedB2BProductRequestDoc'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedB2BProductRequestDoc'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedB2BProductRequestDoc'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_B2BProducts'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+    delete:
+      operationId: products_destroy
+      description: Deletes a product.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - products
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse_'
+          description: ''
+  /schema/:
+    get:
+      operationId: schema_retrieve
+      description: Retrieves the OpenAPI 3.0 schema for this API.
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /upload-media/:
+    post:
+      operationId: upload_media_create
+      description: Uploads a media file (like a product image) to be used as a reference
+        for generating visuals.
+      tags:
+      - file_upload
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UploadFileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UploadFileRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadFileResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+components:
+  schemas:
+    AuthTokenData:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires_at:
+          type: integer
+      required:
+      - access_token
+      - expires_at
+      - token_type
+    AuthTokenRequest:
+      type: object
+      properties:
+        api_key:
+          type: string
+      required:
+      - api_key
+    B2BContentPillars:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+          nullable: true
+        description:
+          type: string
+          readOnly: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        ref_images:
+          readOnly: true
+      required:
+      - created_at
+      - description
+      - id
+      - name
+      - ref_images
+      - updated_at
+    B2BGeneratePostConfig:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        number_of_posts:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/B2BGeneratePostItem'
+          readOnly: true
+        content_pillar:
+          allOf:
+          - $ref: '#/components/schemas/B2BContentPillars'
+          readOnly: true
+      required:
+      - content_pillar
+      - id
+      - items
+    B2BGeneratePostItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        post_type:
+          $ref: '#/components/schemas/PostTypeEnum'
+        assets: {}
+        metadata:
+          nullable: true
+        variants:
+          type: array
+          items:
+            type: string
+        descriptions: {}
+      required:
+      - id
+      - post_type
+    B2BGeneratedPost:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        content_pillar:
+          allOf:
+          - $ref: '#/components/schemas/B2BContentPillars'
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/B2BGeneratedPostStatusEnum'
+        error_message:
+          type: string
+          nullable: true
+        generate_config:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        estimated_duration:
+          type: string
+          readOnly: true
+        post_type:
+          type: string
+          readOnly: true
+        assets_used:
+          type: string
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        media_info:
+          type: string
+          readOnly: true
+      required:
+      - assets_used
+      - content_pillar
+      - created_at
+      - estimated_duration
+      - generate_config
+      - id
+      - media_info
+      - post_type
+      - updated_at
+    B2BGeneratedPostStatusEnum:
+      enum:
+      - success
+      - failed
+      - fetching
+      type: string
+      description: '* `success` - success
+
+        * `failed` - failed
+
+        * `fetching` - fetching'
+    B2BProductRequestDoc:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        variant:
+          type: string
+        media_urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductMediaRequest'
+      required:
+      - name
+      - variant
+    B2BProducts:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        media_urls: {}
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        variant:
+          $ref: '#/components/schemas/VariantEnum'
+      required:
+      - created_at
+      - id
+      - updated_at
+    ConceptWriteDoc:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        ref_images:
+          type: array
+          items:
+            $ref: '#/components/schemas/RefImageWrite'
+      required:
+      - description
+      - name
+    ErrorResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items: {}
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/ErrorResponseStatusEnum'
+      required:
+      - message
+      - status
+    ErrorResponseStatusEnum:
+      enum:
+      - failed
+      type: string
+      description: '* `failed` - failed'
+    MediaAsset:
+      type: object
+      properties:
+        type:
+          type: string
+        url:
+          type: string
+          format: uri
+        product_id:
+          type: string
+          format: uuid
+      required:
+      - product_id
+      - type
+      - url
+    MediaConfigRequest:
+      type: object
+      properties:
+        content_pillar:
+          type: string
+          format: uuid
+        number_of_posts:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaItem'
+      required:
+      - content_pillar
+      - items
+      - number_of_posts
+    MediaDescription:
+      type: object
+      properties:
+        description:
+          type: string
+      required:
+      - description
+    MediaItem:
+      type: object
+      properties:
+        post_type:
+          type: string
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaAsset'
+        variants:
+          type: array
+          items:
+            type: string
+        descriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaDescription'
+        metadata:
+          $ref: '#/components/schemas/MediaMetadata'
+      required:
+      - assets
+      - descriptions
+      - metadata
+      - post_type
+      - variants
+    MediaMetadata:
+      type: object
+      properties:
+        aspect_ratio:
+          type: string
+      required:
+      - aspect_ratio
+    PaginatedData_B2BContentPillars:
+      type: object
+      properties:
+        count:
+          type: integer
+        next:
+          type: string
+          format: uri
+          nullable: true
+        previous:
+          type: string
+          format: uri
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/B2BContentPillars'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    PaginatedData_B2BGeneratePostConfig:
+      type: object
+      properties:
+        count:
+          type: integer
+        next:
+          type: string
+          format: uri
+          nullable: true
+        previous:
+          type: string
+          format: uri
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/B2BGeneratePostConfig'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    PaginatedData_B2BGeneratedPost:
+      type: object
+      properties:
+        count:
+          type: integer
+        next:
+          type: string
+          format: uri
+          nullable: true
+        previous:
+          type: string
+          format: uri
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/B2BGeneratedPost'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    PaginatedData_B2BProducts:
+      type: object
+      properties:
+        count:
+          type: integer
+        next:
+          type: string
+          format: uri
+          nullable: true
+        previous:
+          type: string
+          format: uri
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/B2BProducts'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    PaginatedListSuccess_B2BContentPillars:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PaginatedData_B2BContentPillars'
+        status:
+          $ref: '#/components/schemas/StatusE7cEnum'
+      required:
+      - data
+      - status
+    PaginatedListSuccess_B2BGeneratePostConfig:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PaginatedData_B2BGeneratePostConfig'
+        status:
+          $ref: '#/components/schemas/StatusE7cEnum'
+      required:
+      - data
+      - status
+    PaginatedListSuccess_B2BGeneratedPost:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PaginatedData_B2BGeneratedPost'
+        status:
+          $ref: '#/components/schemas/StatusE7cEnum'
+      required:
+      - data
+      - status
+    PaginatedListSuccess_B2BProducts:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PaginatedData_B2BProducts'
+        status:
+          $ref: '#/components/schemas/StatusE7cEnum'
+      required:
+      - data
+      - status
+    PaginatedPaginatedListSuccess_B2BContentPillarsList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginatedListSuccess_B2BContentPillars'
+    PatchedB2BProductRequestDoc:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        variant:
+          type: string
+        media_urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductMediaRequest'
+    PatchedConceptWriteDoc:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        ref_images:
+          type: array
+          items:
+            $ref: '#/components/schemas/RefImageWrite'
+    PostTypeEnum:
+      enum:
+      - video
+      - image
+      - carousel
+      type: string
+      description: '* `video` - Video
+
+        * `image` - Image
+
+        * `carousel` - Carousel'
+    ProductMediaRequest:
+      type: object
+      properties:
+        type:
+          type: string
+        url:
+          type: string
+          format: uri
+      required:
+      - type
+      - url
+    RefImageWrite:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+      required:
+      - url
+    StatusE7cEnum:
+      enum:
+      - success
+      type: string
+      description: '* `success` - success'
+    SuccessResponse_:
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusE7cEnum'
+      required:
+      - message
+      - status
+    SuccessResponse_AuthTokenData:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AuthTokenData'
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusE7cEnum'
+      required:
+      - data
+      - message
+      - status
+    SuccessResponse_B2BContentPillars:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/B2BContentPillars'
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusE7cEnum'
+      required:
+      - data
+      - message
+      - status
+    SuccessResponse_B2BGeneratePostConfig:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/B2BGeneratePostConfig'
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusE7cEnum'
+      required:
+      - data
+      - message
+      - status
+    SuccessResponse_B2BGeneratedPost:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/B2BGeneratedPost'
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusE7cEnum'
+      required:
+      - data
+      - message
+      - status
+    SuccessResponse_B2BProducts:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/B2BProducts'
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusE7cEnum'
+      required:
+      - data
+      - message
+      - status
+    UploadFileData:
+      type: object
+      properties:
+        message:
+          type: string
+        url:
+          type: string
+          format: uri
+      required:
+      - message
+      - url
+    UploadFileRequest:
+      type: object
+      properties:
+        file:
+          type: string
+          format: uri
+    UploadFileResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/UploadFileData'
+        message:
+          type: string
+        status:
+          type: string
+      required:
+      - data
+      - message
+      - status
+    VariantEnum:
+      enum:
+      - product_with_label
+      - product_without_label
+      - fashion
+      - others
+      type: string
+      description: '* `product_with_label` - product_with_label
+
+        * `product_without_label` - product_without_label
+
+        * `fashion` - fashion
+
+        * `others` - others'
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+tags:
+- name: auth
+  description: Authentication API to generate bearer token
+- name: file_upload
+  description: File upload API to upload product images
+- name: products
+  description: Product APIs
+- name: concept
+  description: Concept APIs
+- name: media-config
+  description: Media configuration APIs
+- name: media
+  description: Media APIs

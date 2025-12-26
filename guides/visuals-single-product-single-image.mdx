@@ -1,0 +1,92 @@
+---
+title: Visuals for a Single Product (Single Image)
+description: Learn how to generate visuals for a single product using a single product image.
+---
+
+This guide explains how to generate visuals for a single product using one product image.
+
+### Step 1: Upload Your Product Image
+
+First, you need to upload your product image to the Gaana AI platform.
+
+Make a `POST` request to the `/upload-media/` endpoint:
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/upload-media/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -F 'file=@/path/to/your/product-image.jpg'
+```
+
+The API will respond with a URL for the uploaded image. Make a note of this URL.
+
+### Step 2: Create a Product
+
+Next, create a product and associate the uploaded image with it.
+
+Make a `POST` request to the `/products/` endpoint:
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/products/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -H 'Content-Type: application/json' \
+  -d "{
+    \"name\": \"My Awesome Product\",
+    \"variant\": \"product_with_label\",
+    \"media_urls\": [
+      {
+        \"type\": \"image\",
+        \"url\": \"your_uploaded_image_url\"
+      }
+    ]
+  }"
+```
+
+Replace `your_uploaded_image_url` with the URL you received in the previous step. The API will respond with the details of the newly created product, including its unique ID.
+
+### Step 3: Create a Concept
+
+You also need a concept to define the creative direction for your visuals.
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/concepts/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -H 'Content-Type: application/json' \
+  -d "{
+    \"name\": \"Product Showcase Concept\",
+    \"description\": \"A concept for generating clean and professional product shots.\"
+  }"
+```
+
+### Step 4: Configure and Generate Media
+
+Finally, create a media configuration to generate the visuals.
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/media-config/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -H 'Content-Type: application/json' \
+  -d "{
+    \"content_pillar\": \"your_concept_id\",
+    \"number_of_posts\": 1,
+    \"items\": [
+      {
+        \"post_type\": \"image\",
+        \"assets\": [
+          {
+            \"type\": \"product\",
+            \"product_id\": \"your_product_id\"
+          }
+        ],
+        \"metadata\": {
+          \"aspect_ratio\": \"16:9\"
+        }
+      }
+    ]
+  }"
+```
+
+Replace `your_concept_id` and `your_product_id` with the IDs you received in the previous steps.

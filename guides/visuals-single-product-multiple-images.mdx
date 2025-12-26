@@ -1,0 +1,70 @@
+---
+title: Visuals for a Single Product (Multiple Images)
+description: Learn how to generate visuals for a single product using multiple images from different angles.
+---
+
+This guide explains how to generate visuals for a single product when you have multiple images of it from different angles.
+
+### Step 1: Upload Your Product Images
+
+First, you need to upload all your product images to the Gaana AI platform. You will need to make a separate `POST` request to the `/upload-media/` endpoint for each image.
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/upload-media/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -F 'file=@/path/to/your/product-image-front.jpg'
+
+curl -X POST \
+  https://api.gaana.ai/upload-media/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -F 'file=@/path/to/your/product-image-side.jpg'
+
+curl -X POST \
+  https://api.gaana.ai/upload-media/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -F 'file=@/path/to/your/product-image-top.jpg'
+```
+
+The API will respond with a URL for each uploaded image. Make a note of these URLs.
+
+### Step 2: Create a Product
+
+Next, create a product and associate all the uploaded images with it.
+
+Make a `POST` request to the `/products/` endpoint:
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/products/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "name": "My Detailed Product",
+    "variant": "product_with_label",
+    "media_urls": [
+      {
+        "type": "image",
+        "url": "your_uploaded_image_url_1"
+      },
+      {
+        "type": "image",
+        "url": "your_uploaded_image_url_2"
+      },
+      {
+        "type": "image",
+        "url": "your_uploaded_image_url_3"
+      }
+    ]
+  }'
+```
+
+Replace the placeholder URLs with the URLs you received in the previous step.
+
+### Step 3: Create a Concept & Generate Media
+
+The rest of the process is the same as for a single image. You will need to:
+1.  **Create a Concept:** Define the creative direction for your visuals.
+2.  **Configure and Generate Media:** Create a media configuration to generate the visuals, referencing your new product.
+
+The Gaana AI will intelligently use the multiple images you provided to generate more accurate and varied visuals.

@@ -1,0 +1,66 @@
+---
+title: Visuals with Multiple Products
+description: Learn how to generate visuals that feature multiple products.
+---
+
+This guide explains how to generate visuals that feature multiple products together.
+
+### Step 1: Create Your Products
+
+First, you need to create all the products you want to feature in your visual. For each product, you will need to:
+1.  **Upload the product image(s)** using the `/upload-media/` endpoint.
+2.  **Create the product** using the `/products/` endpoint, providing the URLs of the uploaded images.
+
+Repeat this process for each product you want to include. Make a note of the product IDs for each product.
+
+### Step 2: Create a Concept
+
+Next, create a concept that defines the creative direction for your multi-product visual.
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/concepts/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "name": "Multi-product Scene",
+    "description": "A concept for generating lifestyle scenes with multiple products."
+  }'
+```
+
+### Step 3: Configure and Generate Media
+
+Finally, create a media configuration that includes all the products you want to feature.
+
+In the `items` array of your media configuration, you can include multiple assets, each with a different `product_id`.
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/media-config/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "content_pillar": "your_concept_id",
+    "number_of_posts": 1,
+    "items": [
+      {
+        "post_type": "image",
+        "assets": [
+          {
+            "type": "product",
+            "product_id": "your_first_product_id"
+          },
+          {
+            "type": "product",
+            "product_id": "your_second_product_id"
+          }
+        ],
+        "metadata": {
+          "aspect_ratio": "16:9"
+        }
+      }
+    ]
+  }'
+```
+
+Replace the placeholder IDs with the actual IDs of your concept and products.

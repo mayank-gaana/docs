@@ -1,0 +1,66 @@
+---
+title: Authentication
+description: Learn how to authenticate with the Gaana AI B2B API.
+---
+
+## Authentication with the Gaana AI B2B API
+
+The Gaana AI B2B API uses JWT bearer tokens to authenticate requests. To get a bearer token, you first need to have an API key.
+
+### Step 1: Obtain your API Key
+
+To get your API key, please follow these steps:
+
+1.  Log in to your Gaana AI account.
+2.  Navigate to the "API Settings" page in your dashboard.
+3.  You will find your API key there. If you haven't generated one yet, you can do so on that page.
+
+<Note>
+  Treat your API key like a password and keep it secure. Do not expose it in client-side code.
+</Note>
+
+### Step 2: Get a Bearer Token
+
+Once you have your API key, you can exchange it for a JWT bearer token by making a `POST` request to the `/get_auth_token` endpoint.
+
+Here is an example of how to do this using cURL:
+
+```bash
+curl -X POST \
+  https://sandbox.getgaana.com/get_auth_token \
+  -H 'Content-Type: application/json' \
+  -d
+  {
+    "api_key": "YOUR_API_KEY"
+  }
+```
+
+Replace `YOUR_API_KEY` with the API key you obtained in the previous step.
+
+The response will contain your `access_token`, which is your JWT bearer token.
+
+```json
+{
+  "data": {
+    "access_token": "your_jwt_bearer_token",
+    "token_type": "bearer",
+    "expires_at": 1672531199
+  },
+  "message": "Authentication successful",
+  "status": "success"
+}
+```
+
+### Step 3: Making Authenticated Requests
+
+To make authenticated requests to the API, include the `access_token` in the `Authorization` header of your requests, prefixed with "Bearer ".
+
+Here is an example of an authenticated request to list your creative concepts:
+
+```bash
+curl -X GET \
+  https://sandbox.getgaana.com/concepts/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token'
+```
+
+Replace `your_jwt_bearer_token` with the access token you received in the previous step.

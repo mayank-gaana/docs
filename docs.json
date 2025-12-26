@@ -1,48 +1,36 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Gaana AI B2B API Docs",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#007bff",
+    "light": "#66aaff",
+    "dark": "#0056b3"
   },
-  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo.svg",
+    "dark": "/logo.svg"
+  },
   "navigation": {
     "tabs": [
       {
         "tab": "Guides",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting Started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "guides/introduction",
+              "guides/authentication"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Creating Visuals",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "guides/visuals-without-product",
+              "guides/visuals-single-product-single-image",
+              "guides/visuals-single-product-multiple-images",
+              "guides/visuals-multiple-products",
+              "guides/visuals-with-reference-image"
             ]
           }
         ]
@@ -51,72 +39,66 @@
         "tab": "API reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "concept",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/concepts-list",
+              "api-reference/concepts-create",
+              "api-reference/concepts-retrieve",
+              "api-reference/concepts-update",
+              "api-reference/concepts-partial-update",
+              "api-reference/concepts-destroy"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "auth",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/get-auth-token-create"
+            ]
+          },
+          {
+            "group": "media-config",
+            "pages": [
+              "api-reference/media-config-list",
+              "api-reference/media-config-create",
+              "api-reference/media-config-retrieve",
+              "api-reference/media-config-destroy"
+            ]
+          },
+          {
+            "group": "media",
+            "pages": [
+              "api-reference/media-list",
+              "api-reference/media-retrieve"
+            ]
+          },
+          {
+            "group": "products",
+            "pages": [
+              "api-reference/products-list",
+              "api-reference/products-create",
+              "api-reference/products-retrieve",
+              "api-reference/products-update",
+              "api-reference/products-partial-update",
+              "api-reference/products-destroy"
+            ]
+          },
+          {
+            "group": "schema",
+            "pages": [
+              "api-reference/schema-retrieve"
+            ]
+          },
+          {
+            "group": "file_upload",
+            "pages": [
+              "api-reference/upload-media-create"
             ]
           }
         ]
       }
     ],
     "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "anchors": []
     }
   }
 }

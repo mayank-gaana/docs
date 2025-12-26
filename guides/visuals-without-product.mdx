@@ -1,0 +1,59 @@
+--- 
+title: Generate Visuals from a Concept
+description: Learn how to generate visuals using only a creative concept.
+---
+
+This guide will show you how to generate visuals using a "concept" as the creative direction. This is the most basic workflow and doesn't require a product.
+
+### Step 1: Create a Concept
+
+First, you need a concept. A concept defines the style, mood, and overall theme of the visuals you want to create.
+
+To create a concept, make a `POST` request to the `/concepts/` endpoint:
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/concepts/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -H 'Content-Type: application/json' \
+  -d '{ 
+    "name": "My Abstract Concept",
+    "description": "A concept for generating abstract visuals with a vibrant color palette."
+  }'
+```
+
+The API will respond with the details of the newly created concept, including its unique ID. Make a note of this ID.
+
+### Step 2: Configure and Generate Media
+
+Now, you can configure and generate your media using the concept you just created.
+
+To create a media configuration, make a `POST` request to the `/media-config/` endpoint:
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/media-config/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -H 'Content-Type: application/json' \
+  -d '{ 
+    "content_pillar": "your_concept_id",
+    "number_of_posts": 1,
+    "items": [
+      {
+        "post_type": "image",
+        "descriptions": [
+          {
+            "description": "An abstract image with vibrant colors."
+          }
+        ],
+        "metadata": {
+          "aspect_ratio": "1:1"
+        }
+      }
+    ]
+  }'
+```
+
+Replace `your_concept_id` with the ID of the concept you created in the previous step.
+
+Once the media configuration is created, Gaana AI will start generating the visuals. You can check the status of the generation process using the `/media/{object_id}/` and `/media/{object_id}/{id}/` endpoints.

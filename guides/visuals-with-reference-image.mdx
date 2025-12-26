@@ -1,0 +1,68 @@
+---
+title: Visuals with a Reference Image
+description: Learn how to generate visuals using a concept with a reference image.
+---
+
+This guide explains how to use a reference image to strongly influence the style and composition of the visuals you generate.
+
+### Step 1: Upload Your Reference Image
+
+First, you need to upload your reference image to the Gaana AI platform.
+
+Make a `POST` request to the `/upload-media/` endpoint:
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/upload-media/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -F 'file=@/path/to/your/reference-image.jpg'
+```
+
+The API will respond with a URL for the uploaded image. Make a note of this URL.
+
+### Step 2: Create a Concept with the Reference Image
+
+Next, create a concept and include the URL of your uploaded reference image in the `ref_images` array.
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/concepts/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -H 'Content-Type: application/json' \
+  -d "{
+    \"name\": \"My Reference Image Concept\",
+    \"description\": \"A concept that uses a reference image for style inspiration.\",
+    \"ref_images\": [
+      {
+        \"url\": \"your_uploaded_reference_image_url\"
+      }
+    ]
+  }"
+```
+
+Replace `your_uploaded_reference_image_url` with the URL you received in the previous step.
+
+### Step 3: Configure and Generate Media
+
+Now, you can generate visuals using this concept. The Gaana AI will use your reference image as a strong source of inspiration for the generated content.
+
+The rest of the process is the same as the other guides. You will need to create a media configuration, specifying the concept you just created. You can choose to include products or not, depending on your needs.
+
+```bash
+curl -X POST \
+  https://api.gaana.ai/media-config/ \
+  -H 'Authorization: Bearer your_jwt_bearer_token' \
+  -H 'Content-Type: application/json' \
+  -d "{
+    \"content_pillar\": \"your_concept_id\",
+    \"number_of_posts\": 1,
+    \"items\": [
+      {
+        \"post_type\": \"image\",
+        \"metadata\": {
+          \"aspect_ratio\": \"1:1\"
+        }
+      }
+    ]
+  }"
+```
