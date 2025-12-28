@@ -1,7 +1,14 @@
 openapi: 3.0.3
 info:
-  title: ''
-  version: 0.0.0
+  title: Gaana AI Visual On-Brand Generation
+  version: v1
+  description: This API helps external developers to use Gaana AI API to create visuals (image, video) which resonate with their brand guidelines. They can create visuals by giving a concept, providing product images, or using reference images that inspire them.
+  contact:
+    name: Gaana AI Support
+    email: support@gaana.ai
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
 - description: Production
   url: https://production.getgaana.com/api

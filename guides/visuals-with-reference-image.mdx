@@ -13,7 +13,7 @@ Make a `POST` request to the `/upload-media/` endpoint:
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/upload-media/ \
+  {BASE_URL}/upload-media/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -F 'file=@/path/to/your/reference-image.jpg'
 ```
@@ -26,7 +26,7 @@ Next, create a concept and include the URL of your uploaded reference image in t
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/concepts/ \
+  {BASE_URL}/concepts/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -H 'Content-Type: application/json' \
   -d "{
@@ -50,7 +50,7 @@ The rest of the process is the same as the other guides. You will need to create
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/media-config/ \
+  {BASE_URL}/media-config/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -H 'Content-Type: application/json' \
   -d "{

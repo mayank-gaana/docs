@@ -19,7 +19,7 @@ Next, create a concept that defines the creative direction for your multi-produc
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/concepts/ \
+  {BASE_URL}/concepts/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -36,7 +36,7 @@ In the `items` array of your media configuration, you can include multiple asset
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/media-config/ \
+  {BASE_URL}/media-config/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -H 'Content-Type: application/json' \
   -d '{

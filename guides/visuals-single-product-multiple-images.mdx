@@ -11,17 +11,17 @@ First, you need to upload all your product images to the Gaana AI platform. You 
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/upload-media/ \
+  {BASE_URL}/upload-media/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -F 'file=@/path/to/your/product-image-front.jpg'
 
 curl -X POST \
-  https://api.gaana.ai/upload-media/ \
+  {BASE_URL}/upload-media/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -F 'file=@/path/to/your/product-image-side.jpg'
 
 curl -X POST \
-  https://api.gaana.ai/upload-media/ \
+  {BASE_URL}/upload-media/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -F 'file=@/path/to/your/product-image-top.jpg'
 ```
@@ -36,7 +36,7 @@ Make a `POST` request to the `/products/` endpoint:
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/products/ \
+  {BASE_URL}/products/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -H 'Content-Type: application/json' \
   -d '{

@@ -13,7 +13,7 @@ Make a `POST` request to the `/upload-media/` endpoint:
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/upload-media/ \
+  {BASE_URL}/upload-media/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -F 'file=@/path/to/your/product-image.jpg'
 ```
@@ -28,7 +28,7 @@ Make a `POST` request to the `/products/` endpoint:
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/products/ \
+  {BASE_URL}/products/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -H 'Content-Type: application/json' \
   -d "{
@@ -51,7 +51,7 @@ You also need a concept to define the creative direction for your visuals.
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/concepts/ \
+  {BASE_URL}/concepts/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -H 'Content-Type: application/json' \
   -d "{
@@ -66,7 +66,7 @@ Finally, create a media configuration to generate the visuals.
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/media-config/ \
+  {BASE_URL}/media-config/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -H 'Content-Type: application/json' \
   -d "{

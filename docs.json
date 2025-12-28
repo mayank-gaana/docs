@@ -1,14 +1,14 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Gaana AI B2B API Docs",
+  "name": "Gaana AI Visual On-Brand Generation Docs",
   "colors": {
     "primary": "#007bff",
     "light": "#66aaff",
     "dark": "#0056b3"
   },
   "logo": {
-    "light": "/logo.svg",
+    "light": "/logo-dark.svg",
     "dark": "/logo.svg"
   },
   "navigation": {
@@ -20,7 +20,8 @@
             "group": "Getting Started",
             "pages": [
               "guides/introduction",
-              "guides/authentication"
+              "guides/authentication",
+              "guides/environments"
             ]
           },
           {
@@ -47,51 +48,6 @@
               "api-reference/concepts-update",
               "api-reference/concepts-partial-update",
               "api-reference/concepts-destroy"
-            ]
-          },
-          {
-            "group": "auth",
-            "pages": [
-              "api-reference/get-auth-token-create"
-            ]
-          },
-          {
-            "group": "media-config",
-            "pages": [
-              "api-reference/media-config-list",
-              "api-reference/media-config-create",
-              "api-reference/media-config-retrieve",
-              "api-reference/media-config-destroy"
-            ]
-          },
-          {
-            "group": "media",
-            "pages": [
-              "api-reference/media-list",
-              "api-reference/media-retrieve"
-            ]
-          },
-          {
-            "group": "products",
-            "pages": [
-              "api-reference/products-list",
-              "api-reference/products-create",
-              "api-reference/products-retrieve",
-              "api-reference/products-update",
-              "api-reference/products-partial-update",
-              "api-reference/products-destroy"
-            ]
-          },
-          {
-            "group": "schema",
-            "pages": [
-              "api-reference/schema-retrieve"
-            ]
-          },
-          {
-            "group": "file_upload",
-            "pages": [
-              "api-reference/upload-media-create"
             ]
           }
         ]

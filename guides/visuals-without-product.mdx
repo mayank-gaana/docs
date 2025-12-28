@@ -13,7 +13,7 @@ To create a concept, make a `POST` request to the `/concepts/` endpoint:
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/concepts/ \
+  {BASE_URL}/concepts/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -H 'Content-Type: application/json' \
   -d '{ 
@@ -32,7 +32,7 @@ To create a media configuration, make a `POST` request to the `/media-config/` e
 
 ```bash
 curl -X POST \
-  https://api.gaana.ai/media-config/ \
+  {BASE_URL}/media-config/ \
   -H 'Authorization: Bearer your_jwt_bearer_token' \
   -H 'Content-Type: application/json' \
   -d '{ 
