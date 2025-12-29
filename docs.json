@@ -37,6 +37,21 @@
         ]
       },
       {
+        "tab": "Tutorials",
+        "groups": [
+          {
+            "group": "End-to-end Examples",
+            "pages": [
+              "tutorials/generate-with-concept-only/index",
+              "tutorials/generate-with-single-product/index",
+              "tutorials/generate-with-multi-image-product/index",
+              "tutorials/generate-with-multiple-products/index",
+              "tutorials/generate-with-reference-image/index"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "API reference",
         "groups": [
           {
@@ -46,7 +61,6 @@
               "api-reference/concepts-create",
               "api-reference/concepts-retrieve",
               "api-reference/concepts-update",
-              "api-reference/concepts-partial-update",
               "api-reference/concepts-destroy"
             ]
           }
