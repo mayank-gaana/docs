@@ -55,13 +55,59 @@
         "tab": "API reference",
         "groups": [
           {
-            "group": "concept",
+            "group": "Authentication",
+            "icon": "key",
+            "pages": [
+              "api-reference/get-auth-token-create"
+            ]
+          },
+          {
+            "group": "File Uploads",
+            "icon": "upload",
+            "pages": [
+              "api-reference/upload-media-create"
+            ]
+          },
+          {
+            "group": "Products",
+            "icon": "box",
+            "pages": [
+              "api-reference/products-list",
+              "api-reference/products-create",
+              "api-reference/products-retrieve",
+              "api-reference/products-update",
+              "api-reference/products-partial-update",
+              "api-reference/products-destroy"
+            ]
+          },
+          {
+            "group": "Creative Concepts",
+            "icon": "pen",
             "pages": [
               "api-reference/concepts-list",
               "api-reference/concepts-create",
               "api-reference/concepts-retrieve",
               "api-reference/concepts-update",
+              "api-reference/concepts-partial-update",
               "api-reference/concepts-destroy"
+            ]
+          },
+          {
+            "group": "Media Configurations",
+            "icon": "gear",
+            "pages": [
+              "api-reference/media-config-list",
+              "api-reference/media-config-create",
+              "api-reference/media-config-retrieve",
+              "api-reference/media-config-destroy"
+            ]
+          },
+          {
+            "group": "Generated Media",
+            "icon": "image",
+            "pages": [
+              "api-reference/media-list",
+              "api-reference/media-retrieve"
             ]
           }
         ]
